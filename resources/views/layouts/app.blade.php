@@ -1,36 +1,30 @@
-<!DOCTYPE html>
-@langrtl
-    <html lang="{{ app()->getLocale() }}" dir="rtl">
-@else
-    <html lang="{{ app()->getLocale() }}">
-@endlangrtl
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', app_name())</title>
-    <meta name="description" content="@yield('meta_description', 'Laravel Test Application')">
-    <meta name="author" content="@yield('meta_author', 'Christos Symeou')">
-    @yield('meta')
-    @stack('before-styles')
-    <!-- Check if the language is set to RTL, so apply the RTL layouts -->
-    <!-- Otherwise apply the normal LTR layouts -->
-    {{ style(mix('css/backend.css')) }}
-    @stack('after-styles')
-</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel Test Application') }}</title>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+</head>
 <body>
-  <div class="app-body" id="app">
-    <main class="main">
-      <div class="container-fluid">
-          @yield('content')
-        </div><!--animated-->
-      </div><!--container-fluid-->
-    </main><!--main-->
-  </div><!--app-body-->
-  <!-- Scripts -->
-  @stack('before-scripts')
-  {!! script(mix('js/backend.js')) !!}
-  @stack('after-scripts')
+    <div id="app">
+        @include('layouts.components.header')
+        <main class="py-4">
+            @yield('content')
+        </main>
+    </div>
 </body>
 </html>

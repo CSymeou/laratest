@@ -13,76 +13,34 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Dashboard
-Route::get('/', function () {
-    return view('welcome');
-});
+//Auth
+Auth::routes();
+
+//Redirects
+Route::redirect('/', '/tasks', 301);
 
 // Tasks
-Route::get('/tasks/create', function () {
-    return view('welcome');
-});
-
-Route::post('/tasks', function () {
-    return view('welcome');
-});
-
-Route::get('/tasks/{task}/edit', function () {
-    return view('welcome');
-});
-
-Route::patch('/tasks/{task}/edit', function () {
-    return view('welcome');
-});
-
-Route::delete('/tasks/{task}', function () {
-    return view('welcome');
-});
-
-Route::get('/users/create', function () {
-    return view('welcome');
-});
-
-// Users
-Route::get('/users/create', function () {
-    return view('welcome');
-});
-
-Route::post('/users', function () {
-    return view('welcome');
-});
-
-Route::get('/users/{user}/edit', function () {
-    return view('welcome');
-});
-
-Route::patch('/users/{task}/edit', function () {
-    return view('welcome');
-});
-
-Route::delete('/users/{task}', function () {
-    return view('welcome');
-});
+Route::get('/tasks', 'App\Http\Controllers\Tasks\TasksController@index')->name('tasks.index');
+Route::get('/tasks/create', 'App\Http\Controllers\Tasks\TasksController@create')->name('tasks.create');
+Route::post('/tasks', 'App\Http\Controllers\Tasks\TasksController@store')->name('tasks.store');
+Route::get('/tasks/{task}/edit', 'App\Http\Controllers\Tasks\TasksController@edit')->name('tasks.edit');
+Route::patch('/tasks/{task}/edit', 'App\Http\Controllers\Tasks\TasksController@update')->name('tasks.update');
+Route::delete('/tasks/{task}', 'App\Http\Controllers\Tasks\TasksController@destroy')->name('tasks.destroy');
 
 // My Tasks
-Route::get('/mytasks', function () {
-    return view('welcome');
-});
-
-Route::get('/mytasks/{task}/edit', function () {
-    return view('welcome');
-});
-
-Route::patch('/tasks/{task}/edit', function () {
-    return view('welcome');
-});
+Route::get('/mytasks', 'App\Http\Controllers\Tasks\MyTasksController@index')->name('myTasks.index');
+Route::get('/mytasks/{task}/edit', 'App\Http\Controllers\Tasks\MyTasksController@edit')->name('myTasks.edit');
+Route::patch('/tasks/{task}/edit', 'App\Http\Controllers\Tasks\MyTasksController@update')->name('myTasks.update');
 
 // Team tasks
-Route::get('/teamtasks', function () {
-    return view('welcome');
-});
+Route::get('/teamtasks', 'App\Http\Controllers\Tasks\TeamTasksController@index')->name('teamTasks.index');
 
 // Team leaders
-Route::get('/teamleaders', function () {
-    return view('welcome');
-});
+Route::get('/teamleaders', 'App\Http\Controllers\Tasks\TeamLeadersController@index')->name('teamLeaders.index');
+
+// Users
+Route::get('/users/create', 'App\Http\Controllers\Users\UsersController@create')->name('users.create');
+Route::post('/users', 'App\Http\Controllers\Users\UsersController@store')->name('users.store');
+Route::get('/users/{user}/edit', 'App\Http\Controllers\Users\UsersController@edit')->name('users.edit');
+Route::patch('/users/{task}/edit', 'App\Http\Controllers\Users\UsersController@update')->name('users.update');
+Route::delete('/users/{task}', 'App\Http\Controllers\Users\UsersController@destroy')->name('users.destroy');

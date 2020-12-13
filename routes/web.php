@@ -32,11 +32,14 @@ Route::get('/mytasks', 'App\Http\Controllers\Tasks\MyTasksController@index')->na
 Route::get('/mytasks/{task}/edit', 'App\Http\Controllers\Tasks\MyTasksController@edit')->name('myTasks.edit');
 Route::patch('/tasks/{task}/edit', 'App\Http\Controllers\Tasks\MyTasksController@update')->name('myTasks.update');
 
-// Team tasks
-Route::get('/teamtasks', 'App\Http\Controllers\Tasks\TeamTasksController@index')->name('teamTasks.index');
+// Team users
+Route::get('/teamusers', 'App\Http\Controllers\Teams\TeamUsersController@index')->name('teamUsers.index');
+Route::get('/teamusers/create', 'App\Http\Controllers\Teams\TeamUsersController@create')->name('teamUsers.create');
+Route::post('/teamusers', 'App\Http\Controllers\Teams\TeamUsersController@store')->name('teamUsers.store');
+Route::delete('/teamusers/{teamuser}', 'App\Http\Controllers\Teams\TeamUsersController@destroy')->name('teamUsers.destroy');
 
 // Team leaders
-Route::get('/teamleaders', 'App\Http\Controllers\Tasks\TeamLeadersController@index')->name('teamLeaders.index');
+Route::get('/teamleaders', 'App\Http\Controllers\Teams\TeamLeadersController@index')->name('teamLeaders.index');
 
 // Users
 Route::get('/users/create', 'App\Http\Controllers\Users\UsersController@create')->name('users.create');

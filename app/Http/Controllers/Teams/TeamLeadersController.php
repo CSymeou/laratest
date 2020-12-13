@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers\Teams;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class TeamLeadersController extends Controller
 {
+
+    public function __construct()
+    {
+        //$this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +20,7 @@ class TeamLeadersController extends Controller
      */
     public function index()
     {
-        //
+        return view('teams.teamleaders.index');
     }
 
     /**

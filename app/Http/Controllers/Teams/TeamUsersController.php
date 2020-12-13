@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Tasks;
+namespace App\Http\Controllers\Teams;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class TaskController extends Controller
+class TeamUsersController extends Controller
 {
+
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
     /**
@@ -18,7 +20,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return view('dashboard.index');
+        return view('teams.teamusers.index');
     }
 
     /**
@@ -28,7 +30,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        return view('teams.teamusers.create');
     }
 
     /**

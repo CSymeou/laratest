@@ -1,11 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Tasks;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class TeamTasksController extends Controller
+class TasksController extends Controller
 {
+    public function __construct()
+    {
+        //$this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +19,7 @@ class TeamTasksController extends Controller
      */
     public function index()
     {
-        //
+        return view('tasks.index');
     }
 
     /**
@@ -23,7 +29,7 @@ class TeamTasksController extends Controller
      */
     public function create()
     {
-        //
+        return view('tasks.create');
     }
 
     /**
@@ -33,17 +39,6 @@ class TeamTasksController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
     {
         //
     }

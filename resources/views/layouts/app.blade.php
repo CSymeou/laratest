@@ -21,7 +21,7 @@
 </head>
 <body>
     <div id="app">
-        @include('layouts.partials.header')
+        <x-layout.header></x-layout.header>
         <main class="py-4">
             @yield('content')
         </main>

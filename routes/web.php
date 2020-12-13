@@ -13,37 +13,44 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Auth
+//Auth routes
 Auth::routes();
 
-//Redirects
+//Redirect to home
 Route::redirect('/', '/home', 301);
-Route::get('/home', 'App\Http\Controllers\HomeController@index')->middleware('auth')->name('home.index');
 
-// Tasks
-Route::get('/tasks/create', 'App\Http\Controllers\Tasks\TasksController@create')->name('tasks.create');
-Route::post('/tasks', 'App\Http\Controllers\Tasks\TasksController@store')->name('tasks.store');
-Route::get('/tasks/{task}/edit', 'App\Http\Controllers\Tasks\TasksController@edit')->name('tasks.edit');
-Route::patch('/tasks/{task}/edit', 'App\Http\Controllers\Tasks\TasksController@update')->name('tasks.update');
-Route::delete('/tasks/{task}', 'App\Http\Controllers\Tasks\TasksController@destroy')->name('tasks.destroy');
+//Auth protected routes
+Route::middleware(['auth'])-> group(function(){
 
-// My Tasks
-Route::get('/mytasks', 'App\Http\Controllers\Tasks\MyTasksController@index')->name('myTasks.index');
-Route::get('/mytasks/{task}/edit', 'App\Http\Controllers\Tasks\MyTasksController@edit')->name('myTasks.edit');
-Route::patch('/tasks/{task}/edit', 'App\Http\Controllers\Tasks\MyTasksController@update')->name('myTasks.update');
+  //Home
+  Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home.index');
 
-// Team users
-Route::get('/teamusers', 'App\Http\Controllers\Teams\TeamUsersController@index')->name('teamUsers.index');
-Route::get('/teamusers/create', 'App\Http\Controllers\Teams\TeamUsersController@create')->name('teamUsers.create');
-Route::post('/teamusers', 'App\Http\Controllers\Teams\TeamUsersController@store')->name('teamUsers.store');
-Route::delete('/teamusers/{teamuser}', 'App\Http\Controllers\Teams\TeamUsersController@destroy')->name('teamUsers.destroy');
+  // Tasks
+  Route::get('/tasks/create', 'App\Http\Controllers\Tasks\TasksController@create')->name('tasks.create');
+  Route::post('/tasks', 'App\Http\Controllers\Tasks\TasksController@store')->name('tasks.store');
+  Route::get('/tasks/{task}/edit', 'App\Http\Controllers\Tasks\TasksController@edit')->name('tasks.edit');
+  Route::patch('/tasks/{task}/edit', 'App\Http\Controllers\Tasks\TasksController@update')->name('tasks.update');
+  Route::delete('/tasks/{task}', 'App\Http\Controllers\Tasks\TasksController@destroy')->name('tasks.destroy');
 
-// Teams
-Route::get('/teams', 'App\Http\Controllers\Teams\TeamsController@index')->name('teams.index');
+  // My Tasks
+  Route::get('/mytasks', 'App\Http\Controllers\Tasks\MyTasksController@index')->name('myTasks.index');
+  Route::get('/mytasks/{task}/edit', 'App\Http\Controllers\Tasks\MyTasksController@edit')->name('myTasks.edit');
+  Route::patch('/tasks/{task}/edit', 'App\Http\Controllers\Tasks\MyTasksController@update')->name('myTasks.update');
 
-// Users
-Route::get('/users/create', 'App\Http\Controllers\Users\UsersController@create')->name('users.create');
-Route::post('/users', 'App\Http\Controllers\Users\UsersController@store')->name('users.store');
-Route::get('/users/{user}/edit', 'App\Http\Controllers\Users\UsersController@edit')->name('users.edit');
-Route::patch('/users/{task}/edit', 'App\Http\Controllers\Users\UsersController@update')->name('users.update');
-Route::delete('/users/{task}', 'App\Http\Controllers\Users\UsersController@destroy')->name('users.destroy');
+  // Teams
+  Route::get('/teams', 'App\Http\Controllers\Teams\TeamsController@index')->name('teams.index');
+
+  // Team users
+  Route::get('/teamusers', 'App\Http\Controllers\Teams\TeamUsersController@index')->name('teamUsers.index');
+  Route::get('/teamusers/create', 'App\Http\Controllers\Teams\TeamUsersController@create')->name('teamUsers.create');
+  Route::post('/teamusers', 'App\Http\Controllers\Teams\TeamUsersController@store')->name('teamUsers.store');
+  Route::delete('/teamusers/{teamuser}', 'App\Http\Controllers\Teams\TeamUsersController@destroy')->name('teamUsers.destroy');
+
+  // Users
+  Route::get('/users/create', 'App\Http\Controllers\Users\UsersController@create')->name('users.create');
+  Route::post('/users', 'App\Http\Controllers\Users\UsersController@store')->name('users.store');
+  Route::get('/users/{user}/edit', 'App\Http\Controllers\Users\UsersController@edit')->name('users.edit');
+  Route::patch('/users/{task}/edit', 'App\Http\Controllers\Users\UsersController@update')->name('users.update');
+  Route::delete('/users/{task}', 'App\Http\Controllers\Users\UsersController@destroy')->name('users.destroy');
+
+});

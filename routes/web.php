@@ -17,10 +17,10 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 //Redirects
-Route::redirect('/', '/tasks', 301);
+Route::redirect('/', '/home', 301);
+Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home.index');
 
 // Tasks
-Route::get('/tasks', 'App\Http\Controllers\Tasks\TasksController@index')->name('tasks.index');
 Route::get('/tasks/create', 'App\Http\Controllers\Tasks\TasksController@create')->name('tasks.create');
 Route::post('/tasks', 'App\Http\Controllers\Tasks\TasksController@store')->name('tasks.store');
 Route::get('/tasks/{task}/edit', 'App\Http\Controllers\Tasks\TasksController@edit')->name('tasks.edit');
@@ -38,8 +38,8 @@ Route::get('/teamusers/create', 'App\Http\Controllers\Teams\TeamUsersController@
 Route::post('/teamusers', 'App\Http\Controllers\Teams\TeamUsersController@store')->name('teamUsers.store');
 Route::delete('/teamusers/{teamuser}', 'App\Http\Controllers\Teams\TeamUsersController@destroy')->name('teamUsers.destroy');
 
-// Team leaders
-Route::get('/teamleaders', 'App\Http\Controllers\Teams\TeamLeadersController@index')->name('teamLeaders.index');
+// Teams
+Route::get('/teams', 'App\Http\Controllers\Teams\TeamsController@index')->name('teams.index');
 
 // Users
 Route::get('/users/create', 'App\Http\Controllers\Users\UsersController@create')->name('users.create');

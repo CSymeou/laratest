@@ -14,7 +14,7 @@
                     </li>
                 @endif
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('tasks.index') ? 'active' : '' }}" href="{{ route('tasks.index') }}">Home</a>
+                    <a class="nav-link {{ request()->routeIs('home.index') ? 'active' : '' }}" href="{{ route('home.index') }}">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('myTasks.index') ? 'active' : '' }}" href="{{ route('myTasks.index') }}">My Tasks</a>
@@ -23,7 +23,7 @@
                     <a class="nav-link {{ request()->routeIs('teamUsers.index') ? 'active' : '' }}" href="{{ route('teamUsers.index') }}">My Team</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('teamLeaders.index') ? 'active' : '' }}" href="{{ route('teamLeaders.index') }}">Team Leaders</a>
+                    <a class="nav-link {{ request()->routeIs('teams.index') ? 'active' : '' }}" href="{{ route('teams.index') }}">Team Leaders</a>
                 </li>
             @else
                 <li class="nav-item dropdown">

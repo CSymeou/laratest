@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Teams;
+namespace App\Http\Controllers\Tasks;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class TeamLeadersController extends Controller
+class TasksController extends Controller
 {
-
     public function __construct()
     {
         //$this->middleware('auth');
@@ -20,7 +19,7 @@ class TeamLeadersController extends Controller
      */
     public function index()
     {
-        return view('teams.teamleaders.index');
+        return view('home.index');
     }
 
     /**
@@ -30,7 +29,7 @@ class TeamLeadersController extends Controller
      */
     public function create()
     {
-        //
+        return view('tasks.create');
     }
 
     /**
@@ -40,17 +39,6 @@ class TeamLeadersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
     {
         //
     }

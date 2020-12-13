@@ -18,7 +18,7 @@ Auth::routes();
 
 //Redirects
 Route::redirect('/', '/home', 301);
-Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home.index');
+Route::get('/home', 'App\Http\Controllers\HomeController@index')->middleware('auth')->name('home.index');
 
 // Tasks
 Route::get('/tasks/create', 'App\Http\Controllers\Tasks\TasksController@create')->name('tasks.create');

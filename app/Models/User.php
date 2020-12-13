@@ -40,4 +40,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Returns the tasks that are assigned to this user
+     */
+    public function tasks(){
+        return $this->hasMany(Task::class, 'assignee_id');
+    }
+
+    /**
+     * Return the tean that the user belongs to
+     */
+    public function team(){
+        return $this->belongsTo(Team::class, 'team_id');
+    }
 }

@@ -18,7 +18,7 @@ class HomeController extends Controller
     {
         return view('views.home.index', [
             'users' => User::user()->get(),
-            'tasks' => Task::
+            'tasks' => Task::paginate(20)
         ]);
     }
 

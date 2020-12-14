@@ -30,16 +30,22 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('view-teams', function(User $user){
             return $user->role == 'admin';
         });
+        Gate::define('view-team', function(User $user){
+            return $user->role == 'leader' || $user->role == 'admin';
+        });
         Gate::define('manage-team', function(User $user){
             return $user->role == 'leader';
         });
         Gate::define('manage-tasks', function(User $user){
-            return $user->role == 'leader' || $user->role == 'user';
+            return $user->role == 'leader' || $user->role == 'user' || $user->role == 'admin';
         });
         Gate::define('manage-users', function(User $user){
-            return $user->role == 'leader' || $user->role == 'user';
+            return $user->role == 'leader' || $user->role == 'user' || $user->role == 'admin';
         });
-        Gate::define('manage-task-progress', function(User $user, Task $task){
+        Gate::define('view-own-tasks', function(User $user){
+            return $user->role == 'user';
+        });
+        Gate::define('manage-own-task', function(User $user, Task $task){
             return $user->id == $task->assignee_id;
         });
     }

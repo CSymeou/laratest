@@ -14,7 +14,7 @@ class TeamUsersController extends Controller
      */
     public function index()
     {
-        return view('teams.teamusers.index');
+        return view('views.teams.teamusers.index');
     }
 
     /**
@@ -24,7 +24,7 @@ class TeamUsersController extends Controller
      */
     public function create()
     {
-        return view('teams.teamusers.create');
+        return view('views.teams.teamusers.create');
     }
 
     /**

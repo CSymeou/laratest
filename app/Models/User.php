@@ -54,4 +54,37 @@ class User extends Authenticatable
     public function team(){
         return $this->belongsTo(Team::class, 'team_id');
     }
+
+    /**
+     * Scope a query to only include admin users.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAdmin($query)
+    {
+        return $query->where('role', 'admin');
+    }
+
+        /**
+     * Scope a query to only include leader users.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeLeader($query)
+    {
+        return $query->where('role', 'leader');
+    }
+
+    /**
+     * Scope a query to only include user users.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeUser($query)
+    {
+        return $query->where('role', 'user');
+    }
 }

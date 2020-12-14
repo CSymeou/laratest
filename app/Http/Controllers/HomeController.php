@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Task;
+use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -14,7 +16,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home.index');
+        return view('views.home.index', [
+            'users' => User::user()->get(),
+            'tasks' => Task::
+        ]);
     }
 
     /**
@@ -24,7 +29,7 @@ class HomeController extends Controller
      */
     public function create()
     {
-        return view('tasks.create');
+        return view('views.tasks.create');
     }
 
     /**

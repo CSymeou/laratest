@@ -34,7 +34,7 @@ class HomeTest extends TestCase
     public function test_home_authenticated_get_home_shows_correct_view(){
         $this->signInUser();
         $response = $this->get(route('home.index'));
-        $response->assertViewIs('home.index');
+        $response->assertViewIs('views.home.index');
     }
 
     //Authenticated admin to home returns view and 200
@@ -42,7 +42,7 @@ class HomeTest extends TestCase
         $this->signInAdmin();
         $response = $this->get(route('home.index'));
         $response->assertStatus(200);
-        $response->assertViewIs('home.index');
+        $response->assertViewIs('views.home.index');
     }
 
     //Authenticated leader to home returns view and 200
@@ -50,7 +50,7 @@ class HomeTest extends TestCase
         $this->signInLeader();
         $response = $this->get(route('home.index'));
         $response->assertStatus(200);
-        $response->assertViewIs('home.index');
+        $response->assertViewIs('views.home.index');
     }
 
     //Authenticated user to home returns view and 200
@@ -58,6 +58,6 @@ class HomeTest extends TestCase
         $this->signInLeader();
         $response = $this->get(route('home.index'));
         $response->assertStatus(200);
-        $response->assertViewIs('home.index');
+        $response->assertViewIs('views.home.index');
     }
 }

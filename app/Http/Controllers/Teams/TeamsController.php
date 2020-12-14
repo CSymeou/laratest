@@ -14,7 +14,7 @@ class TeamsController extends Controller
      */
     public function index()
     {
-        return view('teams.teams.index');
+        return view('views.teams.index');
     }
 
     /**

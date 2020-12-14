@@ -14,7 +14,7 @@ class MyTasksController extends Controller
      */
     public function index()
     {
-        return view('tasks.mytasks.index');
+        return view('views.tasks.mytasks.index');
     }
 
     /**

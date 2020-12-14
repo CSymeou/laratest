@@ -14,7 +14,7 @@ class TasksController extends Controller
      */
     public function create()
     {
-        return view('tasks.create');
+        return view('views.tasks.create');
     }
 
     /**

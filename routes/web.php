@@ -16,11 +16,11 @@ use Illuminate\Support\Facades\Route;
 //Auth routes
 Auth::routes();
 
-//Redirect to home
-Route::redirect('/', '/home', 301);
-
 //Auth protected routes
 Route::middleware(['auth'])-> group(function(){
+
+  //Redirect to home
+  Route::redirect('/', '/home', 301)->name('root');
 
   //Home
   Route::get('/home', 'App\Http\Controllers\HomeController@index')->middleware(['can:manage-tasks', 'can:manage-users'])->name('home.index');

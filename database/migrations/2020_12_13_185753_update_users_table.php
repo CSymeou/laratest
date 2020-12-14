@@ -14,7 +14,7 @@ class UpdateUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('role', 16)->after('password');
+            $table->string('role', 16)->after('password')->default('user');
         });
     }
 

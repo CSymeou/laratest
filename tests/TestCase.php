@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-
+use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use App\Models\User;
@@ -17,22 +17,18 @@ abstract class TestCase extends BaseTestCase
         $this->withExceptionHandling();
     }
 
+
     /**
-     * Overwrite refreshTestDatabase to add seed call
+     * Override function to add seed call
+     *
+     * @return void
      */
-    protected function refreshTestDatabase()
+    protected function refreshInMemoryDatabase()
     {
-        if (! RefreshDatabaseState::$migrated) {
+        $this->artisan('migrate', $this->migrateUsing());
+        $this->artisan('db:seed');
 
-            $this->artisan('migrate');
-            $this->artisan('db:seed');
-
-            $this->app[Kernel::class]->setArtisan(null);
-
-            RefreshDatabaseState::$migrated = true;
-        }
-
-        $this->beginDatabaseTransaction();
+        $this->app[Kernel::class]->setArtisan(null);
     }
 
     /**
@@ -40,7 +36,7 @@ abstract class TestCase extends BaseTestCase
      * 
      */
     protected function signIn($user = null){
-        $user = $user ?: create('App\Models\User');
+        $user = $user ?: create(User::class);
         $this->actingAs($user);
         return $this;
     }

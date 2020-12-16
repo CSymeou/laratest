@@ -254,10 +254,13 @@ exit
 docker exec -it laratest bash
 </pre>
 
-14) You should now be in the web application container. Run the migrations and seeders. If prompted to verify that you want to run this command as app is in production, type yes.
+14) You should now be in the web application container. Run the migrations and seeders. If prompted to verify that you want to run this command as app is in production, type yes. <strong>Note:</strong> The commands to clear and rebuild the config cache may be unnecessary on your end, but do them regardless to prevent MYSQL connection issues later on.
 <pre>
     php artisan migrate
     php artisan db:seed
+    php artisan config:clear
+    php artisan cache:config
+    exit
 </pre>
 
 15) The docker setup is now ready. Now we need to setup nginx to point to our application. We'll do this by setting up a reverse proxy to direct traffic to our application to port 8081, and thus to our application. First we need to go to define a relevant nginx configuration.

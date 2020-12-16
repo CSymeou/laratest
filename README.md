@@ -230,6 +230,8 @@ First we need to connect to the db container:
 </pre>
 
 11) At the password prompt, type: password and enter (Assuming you've kept 'password' as the MYSQL password in the docker-compose.yml configuration, as provided above). You should now be connected to MYSQL. Go on to create the database, then exit from mysql.
+
+<strong>Note: </strong> Obviously in a real world application we'd be using a more secure password.
 <pre>
 CREATE DATABASE laratest;
 exit

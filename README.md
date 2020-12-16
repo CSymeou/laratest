@@ -27,12 +27,12 @@ The functioanlity available to each is different, so you will need to log in as 
    - Has access to Home Screen: Views all tasks and users. Can create, edit, delete, tasks and users.
    - Has access to Teams Screen: Views all teams. Can navigate to details screen for each team, to see users in the team and associated tasks.
    - Cannot have tasks assigned to them
-   - Their own details cannot be update, nor can they be deleted.
+   - Their own details cannot be updated, nor can they be deleted.
  - Leader:
    - Has access to Home Screen: Views all tasks and users. Can create, edit, delete, tasks and users.
    - Has access to My Team Screen: Views all users in the team they lead. Can unassign / assign tasks to team members. Can remove / add users from the team.
    - Cannot have tasks assigned to them
-   - Their own details cannot be update, nor can they be deleted.
+   - Their own details cannot be updated, nor can they be deleted.
  - User:
    - Has access to Home Screen: Views all tasks and users. Can create, edit, delete, tasks and users.
    - Has access to My Tasks Screen: Views all tasks assigned to them. Can update task progress.

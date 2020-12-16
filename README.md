@@ -194,9 +194,10 @@ services:
       - PUSHER_APP_KEY=
       - PUSHER_APP_SECRET=
       - PUSHER_APP_CLUSTER=mt1
-      - MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}" 
-      - MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
+      - MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
+      -	MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
     tty: true
+
   db:
     image: mysql:5.7
     container_name: db

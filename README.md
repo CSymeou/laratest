@@ -5,7 +5,8 @@ This mini application was prepared as a test for Intergo.
 You can view the app from [http://laratest.blupath.co.uk](http://laratest.blupath.co.uk) 
 (I've not gone through the trouble of serving this over HTTPS, so when you login you may see a warning from your browser about sending passwords over an unsecure connection).
 
-Initial points:
+## Initial points
+
 - I treated this entirely as a Laravel test, so there's no Vue, or any reactive frontend components.
 - I used bootstrap 4 as the css library through laravel/ui. [See here](https://www.techiediaries.com/laravel/how-to-install-bootstrap-in-laravel-6-7-by-example/).
 - I scaffolded authorization backend and pages using the laravel/ui bootstrap 4 auth scaffolding. [See here](https://www.techiediaries.com/laravel/how-to-install-bootstrap-in-laravel-6-7-by-example/).

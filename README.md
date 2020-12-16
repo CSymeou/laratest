@@ -35,7 +35,9 @@ The functioanlity available to each is different, so you will need to log in as 
  - User:
    - Has access to Home Screen: Views all tasks and users. Can create, edit, delete, tasks and users.
    - Has access to My Tasks Screen: Views all tasks assigned to them. Can update task progress.
-   
+
+<strong>Note: </strong> I've not added functionality for changing the roles of users to leader or administrator, etc. When you create a new user, they'll all be given the user role. If you want to login to the application as a leader or administrator, please use the test data below.
+
 The application is seeded with details of users and tasks to facilitate testing. Below are the email / password combinations for all seeded users.
 
   - Administrator:
@@ -78,7 +80,7 @@ I used 3 Models:
   - Can be a leader of a teamn. Determined by leader_id value on Team object.
   - Relationships:
     - One to Many: with Task
-    - One to One: with Team (for team leader)
+    - One to Many: with Team (for team leader - in theory a user can be a leader of many teams, though the data I've seeded in the application does not reflect that.)
     - Many to One: with Team (for team member)
 - Task:
   - Represents a user task
@@ -91,7 +93,7 @@ I used 3 Models:
   - Could probably do without this for this app, and make do with a many to one relationship between users to represent leader -> teammembers, but I think conceptually having a team model makes the domain model more easy to understand
   - Each team has a leader, determined by leader_id value on team object.
   - Relationships:
-    - One to One: with User (for team leader)
+    - Many to One: with User (for team leader)
     - One to Many: with User (for team member)
 
 <strong>Note:</strong> I did consider creating 3 seperate models for User, Leader, Admin, and having them inherit from the base User model, but decided against it for such a simple app. I'm instead just using scopes on the User model to separate between the 3 different types of user.

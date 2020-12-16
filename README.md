@@ -130,11 +130,11 @@ The following are instructions to deploy the app in a nginx server using Docker.
 
     <i>cd /var/www</i>
 5) Create a new folder for the application, and a new subfolder to hold the database data.
-    <cpde>
+    <pre>
     mkdir laratest<br>
     cd laratest<br>
     mkdir db-data<br>
-    </code>
+    </pre>
 6) create a docker-compose.yml file to startup the app and database.
 
     <i>touch docker-compose.yml</i><br>

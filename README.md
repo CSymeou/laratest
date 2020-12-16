@@ -127,9 +127,15 @@ The following are instructions to deploy the app in a nginx server using Docker.
 2) SSH into the server
 3) If Docker is not already installed, go ahead and install it. For Digital Ocean instances, you can follow the directions [here](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04). I won't copy and paste them to save space.
 4) Navigate to the server documents root. For ngingx:
-    <i>cd /var/www</i>
 
+    <i>cd /var/www</i>
 5) Create a new folder for the application, and a new subfolder to hold the database data.
-    <i>mkdir laratest</i><br>
-    <i>cd laratest</i><br>
-    <i>mkdir db-data</i><br>
+    <cpde>
+    mkdir laratest<br>
+    cd laratest<br>
+    mkdir db-data<br>
+    </code>
+6) create a docker-compose.yml file to startup the app and database.
+
+    <i>touch docker-compose.yml</i><br>
+    

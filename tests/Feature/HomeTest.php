@@ -68,6 +68,6 @@ class HomeTest extends TestCase
         $this->signInUser();
         $response = $this->get(route('home.index'));
         $this->assertEquals(User::orderByDesc('id')->get(), $response['users']);
-        $this->assertEquals(Task::orderByDesc('id')->paginate(20), $response['tasks']);
+        $this->assertEquals(Task::orderByDesc('id')->paginate(10), $response['tasks']);
     }
 }

@@ -21,11 +21,11 @@ RUN npm install
 COPY . .
 RUN composer install
 
-# cleare the existing config cache
-RUN php artisan config:clear
-
 # build app for production with minification
 RUN npm run prod
+
+# clear the existing config cache
+RUN php artisan config:clear
 
 CMD php artisan serve --host=0.0.0.0 --port=8080
 EXPOSE 8080

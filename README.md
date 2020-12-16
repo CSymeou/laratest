@@ -14,9 +14,28 @@ Key points:
 
 I used 3 Models:
 
-- User: Represents a user in the application. Has a role property that determines the user role. The roles available are 
-
-
+- User: 
+  - Represents a user in the application. 
+  - Has a role property that determines the user role. The roles available are admin / leader / user
+  - Can belong to a team. Team user belongs to determined by team_id value. Nullable: User can belong to no team.
+  - Can be a leader of a teamn. Determined by leader_id value on Team object.
+  - Relationships:
+    - One to Many: with Task
+    - One to One: with Team (for team leader)
+    - Many to One: with Team (for team member)
+- Task:
+  - Represents a user task
+  - Each task has a progress value associated with it which defaults at 0.
+  - Can be assigned to a single user. Determined by assignee_id on model.
+  - Relationships:
+    - Many to One: with User
+- Team:
+  - Represents a team of users
+  - Could probably do without this for this app, and make do with a many to one relationship between users to represent leader -> teammembers, but I think conceptually having a team model makes the domain model more easy to understand
+  - Each team has a leader, determined by leader_id value on team object.
+  - Relationships:
+    - One to One: with User (for team leader)
+    - One to Many: with User (for team member)
 
 
 ## Learning Laravel

@@ -129,3 +129,9 @@ The following are instructions to deploy the app in a nginx server using Docker.
 4) Navigate to the server documents root. For ngingx:
 
 <i>cd /var/www</i>
+
+5) Create a new folder for the application, and a new subfolder to hold the database data.
+
+<i>mkdir laratest</i>
+<i>cd laratest</i>
+<i>mkdir db-data</i>

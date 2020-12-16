@@ -41,7 +41,7 @@ The application is seeded with details of users and tasks to facilitate testing.
     - leader1@leader.com / leader
     - leader2@leader.com / leader
     - leader2@leader.com / leader
-   - Users:
+  - Users:
     - user1@user.com / user
     - user2@user.com / user    
     - user3@user.com / user

@@ -174,7 +174,7 @@ services:
       - SESSION_LIFETIME=120
       - SESSION_ENCRYPT=false
       - QUEUE_CONNECTION=sync
-	  - MEMCACHED_HOST=127.0.0.1
+      - MEMCACHED_HOST=127.0.0.1
       - REDIS_HOST=127.0.0.1
       - REDIS_PASSWORD=null
       - REDIS_PORT=6379
@@ -184,8 +184,8 @@ services:
       - MAIL_USERNAME=null
       - MAIL_PASSWORD=null
       - MAIL_ENCRYPTION=null
-	  - MAIL_FROM_ADDRESS=null
-	  - MAIL_FROM_NAME="${APP_NAME}"
+      - MAIL_FROM_ADDRESS=null
+      - MAIL_FROM_NAME="${APP_NAME}"
       - AWS_KEY_ID=
       - AWS_SECRET_ACCESS_KEY=
       - AWS_DEFAULT_REGION=us-east-1

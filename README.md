@@ -209,3 +209,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=password
 </pre>
+8) Once you've saved the file and are back in the command line, it's time to bring the service up. 
+<pre>
+docker-compose up -d
+</pre>

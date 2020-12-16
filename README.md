@@ -10,7 +10,61 @@ Key points:
 - As the application was designed as an exercise and there were no requirements for multilingual versions, I hardcoded strings into the various views and components, and did not use language strings. In a real application I would typically always use language strings to prepare for potential future localisations.
 - In the past I've used the Laravel Permissions package ([See here](https://spatie.be/docs/laravel-permission/v3/introduction)), to store roles and permissions in the database, and assocaite them with users. For this example I kept things simples, and am just defining $user->role as a field in the users table, and permissions as Gates in AuthServiceProvider.
 
+## About the functionality
+
+There are 3 user roles in the application:
+ - Administrator
+ - Leader
+ - User
+
+The functioanlity available to each is different, so you will need to log in as all 3 users to review the full app.
+
+ - Administrator:
+   - Has access to Home Screen: Views all tasks and users. Can create, edit, delete, tasks and users.
+   - Has access to Teams Screen: Views all teams. Can navigate to details screen for each team, to see users in the team and associated tasks.
+   - Cannot have tasks assigned to them
+   - Their own details cannot be update, nor can they be deleted.
+ - Leader:
+   - Has access to Home Screen: Views all tasks and users. Can create, edit, delete, tasks and users.
+   - Has access to My Team Screen: Views all users in the team they lead. Can unassign / assign tasks to team members. Can remove / add users from the etam.
+   - Cannot have tasks assigned to them
+   - Their own details cannot be update, nor can they be deleted.
+ - User:
+   - Has access to Home Screen: Views all tasks and users. Can create, edit, delete, tasks and users.
+   - Has access to My Tasks Screen: Views all tasks assigned to them. Can update task progress.
+   
+The application is seeded with details of users and tasks to facilitate testing. Below are the email / password combinations for all seeded users.
+
+  - Administrator:
+    - admin@admin.com / admin
+  - Team leaders:
+    - leader1@leader.com / leader
+    - leader2@leader.com / leader
+    - leader2@leader.com / leader
+   - Users:
+    - user1@user.com / user
+    - user2@user.com / user    
+    - user3@user.com / user
+    - user4@user.com / user
+    - user5@user.com / user
+    - user6@user.com / user
+    - user7@user.com / user
+    - user8@user.com / user
+    - user9@user.com / user    
+
+## Accessing the application
+
+I've made a remote deployment at  [http://laratest.blupath.co.uk](https://www.techiediaries.com/laravel/how-to-install-bootstrap-in-laravel-6-7-by-example/).
+
+You can clone this repository on your own local dev environment to test the app out. You will need to set up an .env file to define your database connection. You can download my example .env from here. 
+
+You can also get the application as a docker image from christossymeou/laratest. You can find a docker-compose.yml file from here.
+
+Further down this document I have also set instructions for deployment on an nginx server with Docker.
+
 ## Domain Model
+
+You can find a simple visual representation of the Domain Model here.
 
 I used 3 Models:
 
@@ -38,6 +92,8 @@ I used 3 Models:
     - One to Many: with User (for team member)
 
 ## Database
+
+You can find a simple visual representation of the database structure here.
 
 There are 3 simple tables
 

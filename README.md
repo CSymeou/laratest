@@ -280,3 +280,17 @@ server {
         }
 }
 </pre>
+
+17) Next create a symlink to this configuration from sites-available to sites-enabled
+
+<pre>
+    sudo ln -s /etc/nginx/sites-available/laratest.conf /etc/nginx/sites-enabled/laratest.conf
+</pre>
+
+18) Finally, restart the nginx server to make use of the new configurations
+
+<pre>
+    sudo service nginx restart
+</pre>
+
+19) The deployment is setup. The final step is to update your DNS settings so that the subdomain you've set up for the app points to the server. Disconnect from the server instance. Make a note of the server IP address. Then in the DNS for your domain, create a new A record to point the chosen subdomain to the IP of the server. In my case, I'm pointing laratest.blupath.co.uk to the IP of my DigitalOcean instance.

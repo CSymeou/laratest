@@ -185,7 +185,6 @@ services:
       - MAIL_PASSWORD=null
       - MAIL_ENCRYPTION=null
       - MAIL_FROM_ADDRESS=null
-      - MAIL_FROM_NAME="${APP_NAME}"
       - AWS_KEY_ID=
       - AWS_SECRET_ACCESS_KEY=
       - AWS_DEFAULT_REGION=us-east-1
@@ -194,8 +193,6 @@ services:
       - PUSHER_APP_KEY=
       - PUSHER_APP_SECRET=
       - PUSHER_APP_CLUSTER=mt1
-      - MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
-      -	MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
     tty: true
 
   db:

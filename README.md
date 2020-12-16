@@ -119,3 +119,13 @@ There are 3 simple tables
    - id: Unsigned Big Int
    - leader_id: Unsigned Big Int
 
+## Deploying remotely
+
+The following are instructions to deploy the app in a nginx server using Docker. You can adapt the following for other server configurations.
+
+1) Fire up a new nginx server with whichever cloud services provider you are using (I've moved from using AWS to Digital Ocean). Use an image with Docker preinstalled if one is available.
+2) SSH into the server
+3) If Docker is not already installed, go ahead and install it. For Digital Ocean instances, you can follow the directions [here](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04). I won't copy and paste them to save space.
+4) Navigate to the server documents root. For ngingx:
+
+<i>cd /var/www</i>

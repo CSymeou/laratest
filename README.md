@@ -2,13 +2,16 @@
 
 This mini application was prepared as a test for Intergo.
 
-Key points:
+You can view the app from [http://laratest.blupath.co.uk](http://laratest.blupath.co.uk) (I've not gone through the trouble of serving this over HTTPS.
+
+Initial points:
 - I used bootstrap 4 as the css library through laravel/ui. [See here](https://www.techiediaries.com/laravel/how-to-install-bootstrap-in-laravel-6-7-by-example/).
-- I scaffolded Authorization and Authorization pages using the laravel/ui bootstrap 4 auth scaffolding. [See here](https://www.techiediaries.com/laravel/how-to-install-bootstrap-in-laravel-6-7-by-example/).
-- As I used the default auth scaffolding, there's actually also pages for Registration, Forgot Password, etc, although I'm not linking to any of those pages. I also have not produced any tests for the auth behavior.
+- I scaffolded authorization backend and pages using the laravel/ui bootstrap 4 auth scaffolding. [See here](https://www.techiediaries.com/laravel/how-to-install-bootstrap-in-laravel-6-7-by-example/).
+- As I used the default auth scaffolding, there's actually also pages for Registration, Forgot Password, etc, although I'm not linking to any of those pages from within the app. I've not setup any settings for sending emails, so even if you manually try to access those pages, functionality is not likely to work. I also have not produced any tests for the auth behavior, again, given I'm using the default scaffolding.
 - For icons I used the heroicons set. [See here](https://github.com/blade-ui-kit/blade-heroicons/).
 - As the application was designed as an exercise and there were no requirements for multilingual versions, I hardcoded strings into the various views and components, and did not use language strings. In a real application I would typically always use language strings to prepare for potential future localisations.
 - In the past I've used the Laravel Permissions package ([See here](https://spatie.be/docs/laravel-permission/v3/introduction)), to store roles and permissions in the database, and associate them with users. For this example I kept things simple, and am just defining $user->role as a field in the users table, and permissions as Gates in AuthServiceProvider.
+- Have defined all my tests as Feature tests.
 
 ## About the functionality
 
@@ -54,17 +57,17 @@ The application is seeded with details of users and tasks to facilitate testing.
 
 ## Accessing the application
 
-I've made a remote deployment at  [http://laratest.blupath.co.uk](https://www.techiediaries.com/laravel/how-to-install-bootstrap-in-laravel-6-7-by-example/).
+I've made a remote deployment at [http://laratest.blupath.co.uk](http://laratest.blupath.co.uk).
 
-You can clone this repository on your own local dev environment to test the app out. You will need to set up an .env file to define your database connection. You can download my example .env from here. 
+You can clone this repository on your own local dev environment to test the app out. You will need to set up an .env file to define your database connection. You can download my example .env from [here](https://www.dropbox.com/sh/qr1113xgfblm2uf/AABsV0M9JHjatbA82QT1yPJxa?dl=0). 
 
-You can also get the application as a docker image from christossymeou/laratest. You can find a docker-compose.yml file from here.
+You can also get the application as a docker image by pulling the public image christossymeou/laratest. You can find a docker-compose.yml file from here.
 
 Further down this document I have also set instructions for deployment on an nginx server with Docker.
 
 ## Domain Model
 
-You can find a simple visual representation of the Domain Model here.
+See also a simple visual representation of the DB [here](https://www.dropbox.com/sh/qr1113xgfblm2uf/AABsV0M9JHjatbA82QT1yPJxa?dl=0).
 
 I used 3 Models:
 
@@ -91,9 +94,11 @@ I used 3 Models:
     - One to One: with User (for team leader)
     - One to Many: with User (for team member)
 
+<strong>Note:</strong> I did consider creating 3 seperate models for User, Leader, Admin, and having them inherit from the base User model, but decided against it for such a simple app. I'm instead just using scopes on the User model to separate between the 3 different types of user.
+
 ## Database
 
-You can find a simple visual representation of the database structure here.
+You can find a simple visual representation of the database structure [here](https://www.dropbox.com/sh/qr1113xgfblm2uf/AABsV0M9JHjatbA82QT1yPJxa?dl=0).
 
 There are 3 simple tables
 
@@ -247,7 +252,7 @@ exit
 docker exec -it laratest bash
 </pre>
 
-14) You should now be in the web application container. Run the migrations and seeders. If prompted to verify that you want to run this command as app is in production, type yes. Then exit the container.
+14) You should now be in the web application container. Run the migrations and seeders. If prompted to verify that you want to run this command as app is in production, type yes.
 <pre>
     php artisan migrate
     php artisan db:seed
@@ -296,3 +301,5 @@ server {
 </pre>
 
 19) The deployment is setup. The final step is to update your DNS settings so that the subdomain you've set up for the app points to the server. Disconnect from the server instance. Make a note of the server IP address. Then in the DNS for your domain, create a new A record to point the chosen subdomain to the IP of the server. In my case, I'm pointing laratest.blupath.co.uk to the IP of my DigitalOcean instance.
+
+20) Navigate to the defined domain in your web browser. App should be and running.

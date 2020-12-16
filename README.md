@@ -8,7 +8,7 @@ Key points:
 - As I used the default auth scaffolding, there's actually also pages for Registration, Forgot Password, etc, although I'm not linking to any of those pages. I also have not produced any tests for the auth behavior.
 - For icons I used the heroicons set. [See here](https://github.com/blade-ui-kit/blade-heroicons/).
 - As the application was designed as an exercise and there were no requirements for multilingual versions, I hardcoded strings into the various views and components, and did not use language strings. In a real application I would typically always use language strings to prepare for potential future localisations.
-- In the past I've used the Laravel Permissions package ([See here](https://spatie.be/docs/laravel-permission/v3/introduction)), to store roles and permissions in the database, and assocaite them with users. For this example I kept things simples, and am just defining $user->role as a field in the users table, and permissions as Gates in AuthServiceProvider.
+- In the past I've used the Laravel Permissions package ([See here](https://spatie.be/docs/laravel-permission/v3/introduction)), to store roles and permissions in the database, and associate them with users. For this example I kept things simple, and am just defining $user->role as a field in the users table, and permissions as Gates in AuthServiceProvider.
 
 ## About the functionality
 

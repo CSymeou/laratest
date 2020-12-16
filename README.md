@@ -2,7 +2,8 @@
 
 This mini application was prepared as a test for Intergo.
 
-You can view the app from [http://laratest.blupath.co.uk](http://laratest.blupath.co.uk) (I've not gone through the trouble of serving this over HTTPS.
+You can view the app from [http://laratest.blupath.co.uk](http://laratest.blupath.co.uk) 
+(I've not gone through the trouble of serving this over HTTPS, so when you login you may see a warning from your browser about sending passwords over an unsecure connection).
 
 Initial points:
 - I used bootstrap 4 as the css library through laravel/ui. [See here](https://www.techiediaries.com/laravel/how-to-install-bootstrap-in-laravel-6-7-by-example/).
@@ -259,7 +260,7 @@ docker exec -it laratest bash
     php artisan migrate
     php artisan db:seed
     php artisan config:clear
-    php artisan cache:config
+    php artisan config:cache
     exit
 </pre>
 
@@ -307,4 +308,7 @@ server {
 
 19) The deployment is setup. The final step is to update your DNS settings so that the subdomain you've set up for the app points to the server. Disconnect from the server instance. Make a note of the server IP address. Then in the DNS for your domain, create a new A record to point the chosen subdomain to the IP of the server. In my case, I'm pointing laratest.blupath.co.uk to the IP of my DigitalOcean instance.
 
-20) Navigate to the defined domain in your web browser. App should be and running.
+20) Navigate to the defined domain in your web browser. App should be and running. 
+
+<strong> Note: </strong> If you are getting an SQL connection refused error, you may need to login to the laratest container and rebuild the laravel configuration cache. See steps 13 and 14. I spend some time researching this, we can probably resolve this by creating an entrypoint script for Docker, but as I think that would go beyond the scope of the exercise, I've stayed with the hacky solution of logging into the container and running the relevant command.
+

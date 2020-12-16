@@ -124,23 +124,29 @@ There are 3 simple tables
 The following are instructions to deploy the app in a nginx server using Docker. You can adapt the following for other server configurations.
 
 1) Fire up a new nginx server with whichever cloud services provider you are using (I've moved from using AWS to Digital Ocean). Use an image with Docker preinstalled if one is available.
+
 2) SSH into the server
+
 3) If Docker is not already installed, go ahead and install it. For Digital Ocean instances, you can follow the directions [here](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04). I won't copy and paste them to save space.
+
 4) Navigate to the server documents root. For ngingx:
     <pre>
     cd /var/www
     </pre>
+
 5) Create a new folder for the application, and a new subfolder to hold the database data.
     <pre>
     mkdir laratest
     cd laratest
     mkdir db-data
     </pre>
+
 6) create a docker-compose.yml file to startup the app and database.
     <pre>
     touch docker-compose.yml
     nano docker-compose.yml
     </pre>    
+
 7) Copy the following in the docker-compose.yml file, save and close. 
 <strong>Important note:</strong> In the ports configuration for the 'web' service, I am mapping port 8081 of the host, to port 8080 of the docker container. If you are using port 8081 in this server instance, select a different port. Also in the APP_URL env variable, make sure you define whichever URL you will want to access the app from. 
 <pre>
@@ -206,7 +212,71 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=password
 </pre>
+
 8) Once you've saved the file and are back in the command line, it's time to bring the service up. 
 <pre>
 docker-compose up -d
+</pre>
+
+9) Now we need to set up the database. We only need to do this once. Since we're mapping the host folder ./laratest/db-data to the database container, even if the container drops, the data will perists next time we restart it.
+First we need to connect to the db container:
+<pre>
+    docker exec -it db bash
+</pre>
+
+10) Once we are in the container, we need to connect to mysql and create a database named laratest (assuming you kept the DB_DATABASE env variable above).
+<pre>
+    mysql -u root -p
+</pre>
+
+11) At the password prompt, type: password and enter (Assuming you've kept 'password' as the MYSQL password in the docker-compose.yml configuration, as provided above). You should now be connected to MYSQL. Go on to create the database, then exit from mysql.
+<pre>
+CREATE DATABASE laratest;
+exit
+</pre>
+
+12) Exit from the db container
+<pre>
+exit
+</pre>
+
+13) You should now be back to the host server. Now, we need to create and populate the database tables. First, connect to the docker container hosting our application. 
+<pre>
+docker exec -it laratest bash
+</pre>
+
+14) You should now be in the web application container. Run the migrations and seeders. If prompted to verify that you want to run this command as app is in production, type yes. Then exit the container.
+<pre>
+    php artisan migrate
+    php artisan db:seed
+</pre>
+
+15) The docker setup is now ready. Now we need to setup nginx to point to our application. We'll do this by setting up a reverse proxy to direct traffic to our application to port 8081, and thus to our application. First we need to go to define a relevant nginx configuration.
+
+<pre>
+    cd /etc/nginx/sites-available/
+    touch laratest.conf
+    nano laratest.conf
+</pre>
+
+16) Copy the following in the laratest.conf file. <strong>Important note:</strong>In the server_name line, change to the domain that you would like to access the app from. You'll need to use a domain name thatyou have access to the DNS settings for. For example, I'm using laratest.blupath.co.uk, you may want to use laratest.intergo.co.uk. Also, in the proxy_pass line, if you've defined a host port other than 8081 to the app container, you will need to use that one.
+
+All we are saying here is, any traffic that comes in for this specific subdomain, map to port 8081 (or whichever port you've selected). And since in the docker-compose configuration we've mapped that port to the container port, any request to this domain will reach our dockerised application.
+
+<pre>
+server {
+
+        listen 80;
+        listen [::]:80;
+
+        server_name laratest.blupath.co.uk;
+        location / {
+                proxy_pass http://0.0.0.0:8081;
+                proxy_set_header Accept-Encoding "";
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+        }
+}
 </pre>

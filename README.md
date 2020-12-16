@@ -127,15 +127,84 @@ The following are instructions to deploy the app in a nginx server using Docker.
 2) SSH into the server
 3) If Docker is not already installed, go ahead and install it. For Digital Ocean instances, you can follow the directions [here](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04). I won't copy and paste them to save space.
 4) Navigate to the server documents root. For ngingx:
-
-    <i>cd /var/www</i>
+    <pre>
+    cd /var/www
+    </pre>
 5) Create a new folder for the application, and a new subfolder to hold the database data.
     <pre>
-    mkdir laratest<br>
-    cd laratest<br>
-    mkdir db-data<br>
+    mkdir laratest
+    cd laratest
+    mkdir db-data
     </pre>
 6) create a docker-compose.yml file to startup the app and database.
+    <pre>
+    touch docker-compose.yml
+    nano docker-compose.yml
+    </pre>    
+7) Copy the following in the docker-compose.yml file, save and close
+<pre>
+version: '2.2'
+services:
+  web:
+    image: christossymeou/laratest
+    container_name: laratest
+    restart: always
+    links:
+      - db
+    ports:
+      - 8081:8080
+    environment:
+      - APP_NAME="TRAINING MVC"
+      - APP_ENV=production
+      - APP_KEY=base64:qKYKN6W0mP6wZRmdAs+b/GPYgOcajaa2tomB647U+hw=
+      - APP_DEBUG=false
+      - APP_URL=http://laratest.blupath.co.uk
+      - LOG_CHANNEL=stack
+      - LOG_LEVEL=debug
+      - DB_CONNECTION=mysql
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=laratest
+      - DB_USERNAME=root
+      - DB_PASSWORD=password
+      - BROADCAST_DRIVER=log
+      - CACHE_DRIVER=file
+      - SESSION_DRIVER=file
+      - SESSION_LIFETIME=120
+      - SESSION_ENCRYPT=false
+      - QUEUE_CONNECTION=sync
+	  - MEMCACHED_HOST=127.0.0.1
+      - REDIS_HOST=127.0.0.1
+      - REDIS_PASSWORD=null
+      - REDIS_PORT=6379
+      - MAIL_MAILER=smtp
+      - MAIL_HOST=mailhog
+      - MAIL_PORT=1025
+      - MAIL_USERNAME=null
+      - MAIL_PASSWORD=null
+      - MAIL_ENCRYPTION=null
+	  - MAIL_FROM_ADDRESS=null
+	  - MAIL_FROM_NAME="${APP_NAME}"
+      - AWS_KEY_ID=
+      - AWS_SECRET_ACCESS_KEY=
+      - AWS_DEFAULT_REGION=us-east-1
+      - AWS_BUCKET=
+      - PUSHER_APP_ID=
+      - PUSHER_APP_KEY=
+      - PUSHER_APP_SECRET=
+      - PUSHER_APP_CLUSTER=mt1
+	  - MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
+	  -	MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
+	tty: true
 
-    <i>touch docker-compose.yml</i><br>
-    
+  db:
+    image: mysql:5.7
+    container_name: db
+    ports:
+      - 3306:3306
+    volumes:
+      - ./db-data:/var/lib/mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+</pre>

@@ -141,7 +141,8 @@ The following are instructions to deploy the app in a nginx server using Docker.
     touch docker-compose.yml
     nano docker-compose.yml
     </pre>    
-7) Copy the following in the docker-compose.yml file, save and close
+7) Copy the following in the docker-compose.yml file, save and close. 
+<strong>Important note:</strong> In the ports configuration for the 'web' service, I am mapping port 8081 of the host, to port 8080 of the docker container. If you are using port 8081 in this server instance, select a different port. Also in the APP_URL env variable, make sure you define whichever URL you will want to access the app from. 
 <pre>
 version: '2.2'
 services:

@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use PDO;
 
 class User extends Authenticatable
 {
@@ -56,6 +57,13 @@ class User extends Authenticatable
     }
 
     /**
+     * Return the team that the user owns
+     */
+    public function isLeaderOf(){
+        return $this->hasOne(Team::class, 'leader_id');
+    }
+
+    /**
      * Scope a query to only include admin users.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
@@ -66,7 +74,7 @@ class User extends Authenticatable
         return $query->where('role', 'admin');
     }
 
-        /**
+    /**
      * Scope a query to only include leader users.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
@@ -86,5 +94,57 @@ class User extends Authenticatable
     public function scopeUser($query)
     {
         return $query->where('role', 'user');
+    }
+
+    
+    /* Scope a query to only include unassigned users.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeUnassigned($query){
+        return $query->where('team_id', null);
+    }
+
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\User $user
+     * @return \App\Models\User $user
+     */
+    public static function store($request, $edited_user = null){
+        $user = $edited_user ?: new self;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        //Hacky solution to add details of new users as given Laravel auth bootstrap
+        if($edited_user == null){       
+            $user->email_verified_at = now();
+            $user->role = 'user';
+        }
+        if($request->password){
+            $user->password = bcrypt($request->password);
+        }
+        return $user->save();
+    }
+
+    /**
+     * function to assign user to team
+     * 
+     * @param  \App\Models\Team $team
+     * @return \App\Models\User $user
+     */
+    public function assignTo($team){
+        $this->team_id = $team->id;
+        return $this->save();
+    }
+
+    /**
+     * function to unassign team from user
+     * 
+     * @param  \App\Models\Team $team
+     * @return \App\Models\User $user
+     */
+    public function unassign(){
+        $this->team_id = null;
+        return $this->save();
     }
 }

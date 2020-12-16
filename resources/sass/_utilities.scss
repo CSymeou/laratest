@@ -1,6 +1,46 @@
 .bg-primary {
   background-color: $primary;
+  color: white;
 }
 .bg-secondary {
   background-color: $secondary;
+}
+.bg-cyan{
+  background-color: $cyan;
+  color: white;
+}
+.bg-purple {
+    background-color: $purple;
+    color: white;
+}
+.bg-orange {
+    background-color: $orange;
+    color: white;
+}
+.bg-pink {
+    background-color: $pink;
+    color: white;
+}
+
+.color-primary {
+    color: $primary;
+}
+.color-secondary {
+    color: $secondary;
+}
+.color-cyan {
+    color: $cyan;
+}
+.color-purple {
+    color: $purple;
+}
+.color-orange {
+    color: $orange;
+}
+.color-pink {
+    color: $pink;
+}
+.sq-25 {
+  width: 25px;
+  height: 25px;
 }

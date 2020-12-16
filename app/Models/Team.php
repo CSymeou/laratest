@@ -22,4 +22,11 @@ class Team extends Model
     public function members(){
         return $this->hasMany(User::class, 'team_id');
     }
+
+    /**
+     * Get team whose leader is current auth user
+     */
+    public function scopeMy($query){
+        return $query->where('leader_id', auth()->id());
+    }
 }

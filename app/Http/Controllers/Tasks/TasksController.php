@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Tasks;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreTaskRequest;
+use App\Models\Task;
+use App\Models\User;
 
 class TasksController extends Controller
 {
@@ -14,7 +17,9 @@ class TasksController extends Controller
      */
     public function create()
     {
-        return view('views.tasks.create');
+        return view('views.tasks.create', [
+            'users' => User::user()->get()
+        ]);
     }
 
     /**
@@ -23,9 +28,10 @@ class TasksController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTaskRequest $request)
     {
-        //
+        Task::store($request);
+        return redirect(route('home.index'));
     }
 
     /**
@@ -34,9 +40,12 @@ class TasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Task $task)
     {
-        //
+        return view('views.tasks.edit', [
+            'task' => $task,
+            'users' => User::user()->get()
+        ]);
     }
 
     /**
@@ -46,9 +55,10 @@ class TasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreTaskRequest $request, Task $task)
     {
-        //
+        Task::store($request, $task);
+        return redirect(route('home.index'));
     }
 
     /**
@@ -57,8 +67,9 @@ class TasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy(Task $task)
+    {   
+        $task->delete();
+        return back();
     }
 }

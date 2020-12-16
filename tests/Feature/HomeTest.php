@@ -5,6 +5,8 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\Task;
+use App\Models\User;
 
 class HomeTest extends TestCase
 {
@@ -55,9 +57,17 @@ class HomeTest extends TestCase
 
     //Authenticated user to home returns view and 200
     public function test_home_authenticated_user_get_home_shows_correct_view(){
-        $this->signInLeader();
+        $this->signInUser();
         $response = $this->get(route('home.index'));
         $response->assertStatus(200);
         $response->assertViewIs('views.home.index');
+    }
+
+    //Authenticated user to home returns accurate data
+    public function test_home_authenticated_user_get_home_view_contains_data(){
+        $this->signInUser();
+        $response = $this->get(route('home.index'));
+        $this->assertEquals(User::orderByDesc('id')->get(), $response['users']);
+        $this->assertEquals(Task::orderByDesc('id')->paginate(20), $response['tasks']);
     }
 }

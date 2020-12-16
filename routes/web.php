@@ -23,7 +23,7 @@ Route::middleware(['auth'])-> group(function(){
   Route::redirect('/', '/home', 301)->name('root');
 
   //Home
-  Route::get('/home', 'App\Http\Controllers\HomeController@index')->middleware(['can:manage-tasks', 'can:manage-users'])->name('home.index');
+  Route::get('/home', 'App\Http\Controllers\HomeController@index')->middleware(['can:manage-tasks', 'can:view-users'])->name('home.index');
 
   // Tasks
   Route::get('/tasks/create', 'App\Http\Controllers\Tasks\TasksController@create')->middleware('can:manage-tasks')->name('tasks.create');
@@ -34,23 +34,33 @@ Route::middleware(['auth'])-> group(function(){
 
   // My Tasks
   Route::get('/mytasks', 'App\Http\Controllers\Tasks\MyTasksController@index')->middleware('can:view-own-tasks')->name('myTasks.index');
-  Route::get('/mytasks/{task}/edit', 'App\Http\Controllers\Tasks\MyTasksController@edit')->middleware('can:manage-own-task,task')->name('myTasks.edit');
-  Route::patch('/tasks/{task}/edit', 'App\Http\Controllers\Tasks\MyTasksController@update')->middleware('can:manage-own-task,task')->name('myTasks.update');
+
+  //Task Progress management
+  Route::get('/taskprogress/{task}/edit', 'App\Http\Controllers\Tasks\TaskProgressController@edit')->middleware('can:manage-own-task,task')->name('taskProgress.edit');
+  Route::patch('/taskprogress/{task}/edit', 'App\Http\Controllers\Tasks\TaskProgressController@update')->middleware('can:manage-own-task,task')->name('taskProgress.update');
+
+  //Assign Task to User
+  Route::get('/taskstousers/{user}/create', 'App\Http\Controllers\Tasks\TasksToUsersController@create')->middleware('can:manage-tasks')->name('tasksToUsers.create');
+  Route::post('/taskstousers/{user}/post', 'App\Http\Controllers\Tasks\TasksToUsersController@store')->middleware('can:manage-tasks')->name('tasksToUsers.store');
+  Route::delete('/taskstousers/{task}', 'App\Http\Controllers\Tasks\TasksToUsersController@destroy')->middleware('can:manage-tasks')->name('tasksToUsers.destroy');
 
   // Teams
   Route::get('/teams', 'App\Http\Controllers\Teams\TeamsController@index')->middleware('can:view-teams')->name('teams.index');
+  Route::get('/teams/{team}', 'App\Http\Controllers\Teams\TeamsController@show')->middleware('can:view-team')->name('teams.show');
 
-  // Team users
-  Route::get('/teamusers', 'App\Http\Controllers\Teams\TeamUsersController@index')->middleware('can:view-team')->name('teamUsers.index');
-  Route::get('/teamusers/create', 'App\Http\Controllers\Teams\TeamUsersController@create')->middleware('can:manage-team')->name('teamUsers.create');
-  Route::post('/teamusers', 'App\Http\Controllers\Teams\TeamUsersController@store')->middleware('can:manage-team')->name('teamUsers.store');
-  Route::delete('/teamusers/{teamuser}', 'App\Http\Controllers\Teams\TeamUsersController@destroy')->middleware('can:manage-team')->name('teamUsers.destroy');
+  // My Team
+  Route::get('/myteam', 'App\Http\Controllers\Teams\MyTeamController@index')->middleware('can:view-own-team')->name('myTeam.index');
+
+  // Team Members
+  Route::get('/teammembers/{team}/create', 'App\Http\Controllers\Teams\TeamMembersController@create')->middleware('can:manage-team,team')->name('teamMembers.create');
+  Route::post('/teammembers/{team}/', 'App\Http\Controllers\Teams\TeamMembersController@store')->middleware('can:manage-team,team')->name('teamMembers.store');
+  Route::delete('/teammembers/{team}/{user}', 'App\Http\Controllers\Teams\TeamMembersController@destroy')->middleware('can:manage-team,team')->name('teamMembers.destroy');
 
   // Users
-  Route::get('/users/create', 'App\Http\Controllers\Users\UsersController@create')->middleware('can:manage-users')->name('users.create');
-  Route::post('/users', 'App\Http\Controllers\Users\UsersController@store')->middleware('can:manage-users')->name('users.store');
-  Route::get('/users/{user}/edit', 'App\Http\Controllers\Users\UsersController@edit')->middleware('can:manage-users')->name('users.edit');
-  Route::patch('/users/{task}/edit', 'App\Http\Controllers\Users\UsersController@update')->middleware('can:manage-users')->name('users.update');
-  Route::delete('/users/{task}', 'App\Http\Controllers\Users\UsersController@destroy')->middleware('can:manage-users')->name('users.destroy');
+  Route::get('/users/create', 'App\Http\Controllers\Users\UsersController@create')->middleware('can:create-users')->name('users.create');
+  Route::post('/users', 'App\Http\Controllers\Users\UsersController@store')->middleware('can:create-users')->name('users.store');
+  Route::get('/users/{user}/edit', 'App\Http\Controllers\Users\UsersController@edit')->middleware('can:edit-users,user')->name('users.edit');
+  Route::patch('/users/{user}/edit', 'App\Http\Controllers\Users\UsersController@update')->middleware('can:edit-users,user')->name('users.update');
+  Route::delete('/users/{user}', 'App\Http\Controllers\Users\UsersController@destroy')->middleware('can:edit-users,user')->name('users.destroy');
 
 });

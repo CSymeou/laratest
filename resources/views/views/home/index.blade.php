@@ -2,27 +2,38 @@
 
 @section('content')
 
-<x-ui.block>
-  <x-ui.card header="All tasks">
-    My content here
-  </x-ui.card>
-</x-ui.block>
+@can('manage-tasks')
+  <x-ui.layout.block>
+    <x-ui.cards.card header="All tasks">
+      <x-tasks.table :tasks="$tasks">
+      </x-tasks.table>
+      {{$tasks->links("pagination::bootstrap-4")}}
+    </x-ui.cards.card>
+  </x-ui.layout.block>
+  
+@endcan
 
-<x-ui.block>
-  <x-ui.card header="All users">
-    My content here
-  </x-ui.card>
-</x-ui.block>
+@can('view-users')
+  <x-ui.layout.block>
+    <x-ui.cards.card header="All users">
+      <x-users.table :users="$users">
+      </x-users.table>
+    </x-ui.cards.card>
+  </x-ui.layout.block>
+@endcan
 
-<x-ui.block align="center">
-  <x-ui.nav-button 
-    href="{{route('tasks.create')}}" 
-    text="Add a task">
-  </x-ui.nav-button>
-  <x-ui.nav-button 
-    href="{{route('users.create')}}" 
-    text="Add a new user">
-  </x-ui.nav-button>
-</x-ui.block>
+<x-ui.layout.block align="center">
+  @can('manage-tasks')
+    <x-ui.buttons.nav-button href="{{route('tasks.create')}}">
+      Add a task
+    </x-ui.buttons.nav-button>
+  @endcan
+
+  @can('create-users')
+    <x-ui.buttons.nav-button href="{{route('users.create')}}">
+      Add a new user
+    </x-ui.buttons.nav-button>
+  @endcan
+</x-ui.layout.block>
 
 @endsection

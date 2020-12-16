@@ -64,7 +64,7 @@ I've made a remote deployment at [http://laratest.blupath.co.uk](http://laratest
 
 You can clone this repository on your own local dev environment to test the app out. You will need to set up an .env file to define your database connection. You can download my example .env from [here](https://www.dropbox.com/sh/qr1113xgfblm2uf/AABsV0M9JHjatbA82QT1yPJxa?dl=0). 
 
-You can also get the application as a docker image by pulling the public image christossymeou/laratest. You can find a docker-compose.yml file from here.
+You can also get the application as a docker image by pulling the public image christossymeou/laratest. You can find a docker-compose.yml file from [here](https://www.dropbox.com/sh/qr1113xgfblm2uf/AABsV0M9JHjatbA82QT1yPJxa?dl=0). 
 
 Further down this document I have also set instructions for deployment on an nginx server with Docker.
 

@@ -2,9 +2,12 @@
 
 This mini application was prepared as a test for Intergo.
 
-You can view the app from [http://laratest.blupath.co.uk](http://laratest.blupath.co.uk) (I've not gone through the trouble of serving this over HTTPS.
+You can view the app from [http://laratest.blupath.co.uk](http://laratest.blupath.co.uk) 
+(I've not gone through the trouble of serving this over HTTPS, so when you login you may see a warning from your browser about sending passwords over an unsecure connection).
 
-Initial points:
+## Initial points
+
+- I treated this entirely as a Laravel test, so there's no Vue, or any reactive frontend components.
 - I used bootstrap 4 as the css library through laravel/ui. [See here](https://www.techiediaries.com/laravel/how-to-install-bootstrap-in-laravel-6-7-by-example/).
 - I scaffolded authorization backend and pages using the laravel/ui bootstrap 4 auth scaffolding. [See here](https://www.techiediaries.com/laravel/how-to-install-bootstrap-in-laravel-6-7-by-example/).
 - As I used the default auth scaffolding, there's actually also pages for Registration, Forgot Password, etc, although I'm not linking to any of those pages from within the app. I've not setup any settings for sending emails, so even if you manually try to access those pages, functionality is not likely to work. I also have not produced any tests for the auth behavior, again, given I'm using the default scaffolding.
@@ -26,12 +29,12 @@ The functioanlity available to each is different, so you will need to log in as 
    - Has access to Home Screen: Views all tasks and users. Can create, edit, delete, tasks and users.
    - Has access to Teams Screen: Views all teams. Can navigate to details screen for each team, to see users in the team and associated tasks.
    - Cannot have tasks assigned to them
-   - Their own details cannot be update, nor can they be deleted.
+   - Their own details cannot be updated, nor can they be deleted.
  - Leader:
    - Has access to Home Screen: Views all tasks and users. Can create, edit, delete, tasks and users.
-   - Has access to My Team Screen: Views all users in the team they lead. Can unassign / assign tasks to team members. Can remove / add users from the etam.
+   - Has access to My Team Screen: Views all users in the team they lead. Can unassign / assign tasks to team members. Can remove / add users from the team.
    - Cannot have tasks assigned to them
-   - Their own details cannot be update, nor can they be deleted.
+   - Their own details cannot be updated, nor can they be deleted.
  - User:
    - Has access to Home Screen: Views all tasks and users. Can create, edit, delete, tasks and users.
    - Has access to My Tasks Screen: Views all tasks assigned to them. Can update task progress.
@@ -63,7 +66,7 @@ I've made a remote deployment at [http://laratest.blupath.co.uk](http://laratest
 
 You can clone this repository on your own local dev environment to test the app out. You will need to set up an .env file to define your database connection. You can download my example .env from [here](https://www.dropbox.com/sh/qr1113xgfblm2uf/AABsV0M9JHjatbA82QT1yPJxa?dl=0). 
 
-You can also get the application as a docker image by pulling the public image christossymeou/laratest. You can find a docker-compose.yml file from here.
+You can also get the application as a docker image by pulling the public image christossymeou/laratest. You can find a docker-compose.yml file from [here](https://www.dropbox.com/sh/qr1113xgfblm2uf/AABsV0M9JHjatbA82QT1yPJxa?dl=0). 
 
 Further down this document I have also set instructions for deployment on an nginx server with Docker.
 
@@ -259,7 +262,7 @@ docker exec -it laratest bash
     php artisan migrate
     php artisan db:seed
     php artisan config:clear
-    php artisan cache:config
+    php artisan config:cache
     exit
 </pre>
 
@@ -307,4 +310,7 @@ server {
 
 19) The deployment is setup. The final step is to update your DNS settings so that the subdomain you've set up for the app points to the server. Disconnect from the server instance. Make a note of the server IP address. Then in the DNS for your domain, create a new A record to point the chosen subdomain to the IP of the server. In my case, I'm pointing laratest.blupath.co.uk to the IP of my DigitalOcean instance.
 
-20) Navigate to the defined domain in your web browser. App should be and running.
+20) Navigate to the defined domain in your web browser. App should be and running. 
+
+<strong> Note: </strong> If you are getting an SQL connection refused error, you may need to login to the laratest container and rebuild the laravel configuration cache. See steps 13 and 14. I spend some time researching this, we can probably resolve this by creating an entrypoint script for Docker, but as I think that would go beyond the scope of the exercise, I've stayed with the hacky solution of logging into the container and running the relevant command.
+

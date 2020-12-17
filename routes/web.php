@@ -49,7 +49,7 @@ Route::middleware(['auth'])-> group(function(){
   Route::get('/teams/{team}', 'App\Http\Controllers\Teams\TeamsController@show')->middleware('can:view-team')->name('teams.show');
 
   // My Team
-  Route::get('/teams/my', 'App\Http\Controllers\Teams\MyTeamController@index')->middleware('can:view-own-team')->name('myTeam.index');
+  Route::get('/myteam', 'App\Http\Controllers\Teams\MyTeamController@index')->middleware('can:view-own-team')->name('myTeam.index');
 
   // Team Members
   Route::get('/teams/{team}/members/create', 'App\Http\Controllers\Teams\TeamMembersController@create')->middleware('can:manage-team,team')->name('teamMembers.create');
